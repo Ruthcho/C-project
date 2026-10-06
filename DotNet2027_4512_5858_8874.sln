@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalTest", "DalTest\DalTest.csproj", "{783A70B6-4B69-4B8E-9253-B64EBF1E0E4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalFacade", "DalFacade\DalFacade.csproj", "{F3DE7F13-FD38-43EE-AFAA-0542073C7808}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalList", "DalList\DalList.csproj", "{FEDCDBCD-2CC6-4433-840F-3EB3522D9F72}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{783A70B6-4B69-4B8E-9253-B64EBF1E0E4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{783A70B6-4B69-4B8E-9253-B64EBF1E0E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{783A70B6-4B69-4B8E-9253-B64EBF1E0E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{783A70B6-4B69-4B8E-9253-B64EBF1E0E4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3DE7F13-FD38-43EE-AFAA-0542073C7808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3DE7F13-FD38-43EE-AFAA-0542073C7808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3DE7F13-FD38-43EE-AFAA-0542073C7808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3DE7F13-FD38-43EE-AFAA-0542073C7808}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEDCDBCD-2CC6-4433-840F-3EB3522D9F72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEDCDBCD-2CC6-4433-840F-3EB3522D9F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEDCDBCD-2CC6-4433-840F-3EB3522D9F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEDCDBCD-2CC6-4433-840F-3EB3522D9F72}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A508DDB1-199E-42F0-9C06-DFC160F1F230}
+	EndGlobalSection
+EndGlobal
