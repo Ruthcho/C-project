@@ -8,14 +8,13 @@ namespace DO;
 
 public record Test //ישות מבחן
 {
-    int TestId; //מזהה מבחן
-    Enum SubjTest; //נושא המבחן
-    DateTime TestDate; //תאריך המבחן
-    int SumQuestions; //מספר השאלות
+    public int TestId; //מזהה מבחן
+    public Enum SubjTest; //נושא המבחן
+    public DateTime TestDate; //תאריך המבחן
+    public int SumQuestions; //מספר השאלות
 
-    public Test(int id, Enum subj, DateTime date, int sumq)
+    public Test( Enum subj, DateTime date, int sumq)
     {
-        this.TestId = id;
         this.SubjTest = subj;
         this.TestDate = date;
         this.SumQuestions = sumq;

@@ -8,13 +8,12 @@ namespace DO;
 
 public record Question
 {
-    int IdQuestion;
-    Enum SubQuestion;
-    string QuestionContent;
-    int IsRightId;
+  public  int IdQuestion;
+    public Enum? SubQuestion;
+    public string QuestionContent;
+    public int IsRightId;
 
-    public Question(int id, Enum subj, string content, int isRight) { 
-        this.IdQuestion = id;
+    public Question(Enum subj, string content, int isRight) {
         this.SubQuestion = subj;
         this.QuestionContent = content;
         this.IsRightId = isRight;

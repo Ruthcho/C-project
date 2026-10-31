@@ -8,12 +8,11 @@ namespace DO;
 
 public record Answer
 {
-    int AnswerId;
-    int QuestionId;
-    string AnswerContent;
+    public int AnswerId;
+    public int QuestionId;
+    public string AnswerContent;
 
-    public Answer(int Aid, int Qid, string content) {
-       this.AnswerId = Aid;
+    public Answer(int Qid, string content) {
         this.QuestionId = Qid;
        this.AnswerContent = content;
     }
