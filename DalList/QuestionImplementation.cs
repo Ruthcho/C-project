@@ -16,11 +16,15 @@ internal class QuestionImplementation : IQuestion
 
     public void Delete(int id)
     {
-        foreach (Question item in DataSource.questions)
+        foreach(Question item in DataSource.questions)
         {
-           if(item.IdQuestion==id) 
+            if(item.IdQuestion==id)
+            {
                 DataSource.questions.Remove(item);
+                return;
+            }
         }
+        throw new NotFoundIdException($"Question with id {id} not found.");
     }
 
     public Question? Read(int id)
@@ -30,7 +34,7 @@ internal class QuestionImplementation : IQuestion
             if(item.IdQuestion==id)
                 return item;
         }
-        return null;
+        throw new NotFoundIdException($"Question with id {id} not found.");
     }
 
     public List<Question> ReadAll()
@@ -41,14 +45,15 @@ internal class QuestionImplementation : IQuestion
 
     public void Update(Question item)
     {
-        foreach (Question item1 in DataSource.questions)
+        foreach(Question i in DataSource.questions)
         {
-            if (item1.IdQuestion == item.IdQuestion)
+            if(i.IdQuestion==item.IdQuestion)
             {
-                DataSource.questions.Remove(item1);
-                Create(item);
+                DataSource.questions.Remove(i);
+                DataSource.questions.Add(item);
+                return;
             }
-
         }
+        throw new NotFoundIdException($"Question with id {item.IdQuestion} not found.");
     }
 }

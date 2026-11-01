@@ -20,12 +20,13 @@ internal class TestImplementation : ITest
     {
         foreach (Test item in DataSource.tests)
         {
-            if(item.TestId==id)
-                {
+            if (item.TestId == id)
+            {
                 DataSource.tests.Remove(item);
                 return;
             }
         }
+        throw new NotFoundIdException($"Test with id {id} not found.");
     }
 
     public Test? Read(int id)
@@ -38,7 +39,7 @@ internal class TestImplementation : ITest
                 return item;
             }
         }
-        return null;
+        throw new NotFoundIdException($"Test with id {id} not found.");
     }
 
     public List<Test> ReadAll()
@@ -49,13 +50,16 @@ internal class TestImplementation : ITest
 
     public void Update(Test item)
     {
-        foreach (Test item1 in DataSource.tests)
+        foreach (Test i in DataSource.tests)
         {
-            if (item.TestId == item1.TestId)
+            if (i.TestId == item.TestId)
             {
-                DataSource.tests.Remove(item1);
+                DataSource.tests.Remove(i);
                 DataSource.tests.Add(item);
+                return;
             }
         }
+
+        throw new NotFoundIdException($"Test with id {item.TestId} not found.");
     }
 }

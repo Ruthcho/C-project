@@ -10,24 +10,21 @@ internal class QuestiosstudentImplementation : IQuestionsstudent
     public int Create(Questionsstudent item)
     {
         item.QuestudentId= DataSource.Config.QsId;
-        foreach (Questionsstudent item1 in DataSource.questionsstudents)
-        {
-            if(item.QuestudentId==item1.QuestudentId)
-                return -1;
-
-        }
         DataSource.questionsstudents.Add(item);
             return item.QuestudentId;
     }
 
     public void Delete(int idQ)
     {
-        foreach (Questionsstudent item in DataSource.questionsstudents)
+foreach (Questionsstudent item in DataSource.questionsstudents)
         {
             if(item.QuestudentId==idQ)
+            {
                 DataSource.questionsstudents.Remove(item);
+                return;
+            }
         }
-
+        throw new NotFoundIdException($"QuestionStudent with id {idQ} not found.");
 
     }
 
@@ -38,7 +35,7 @@ internal class QuestiosstudentImplementation : IQuestionsstudent
             if(item.QuestudentId==idQ)
                 return item;
         }
-        return null;
+        throw new NotFoundIdException($"QuestionStudent with id {idQ} not found.");
     }
 
     public List<Questionsstudent> ReadAll()
@@ -49,14 +46,15 @@ internal class QuestiosstudentImplementation : IQuestionsstudent
 
     public void Update(Questionsstudent item)
     {
-        foreach(Questionsstudent item1 in DataSource.questionsstudents)
+        foreach (Questionsstudent i in DataSource.questionsstudents)
         {
-            if (item.QuestudentId== item1.QuestudentId)
+            if (i.QuestudentId == item.QuestudentId)
             {
-                DataSource.questionsstudents.Remove(item1);
-                DataSource.questionsstudents.Add(item);   
+                DataSource.questionsstudents.Remove(i);
+                DataSource.questionsstudents.Add(item);
+                return;
             }
-
         }
+        throw new NotFoundIdException($"QuestionStudent with id {item.QuestudentId} not found.");
     }
 }

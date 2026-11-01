@@ -14,10 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="C:\year_B\C#\project\Program.cs" Link="Program.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
     <ProjectReference Include="..\DalList\DalList.csproj" />
   </ItemGroup>

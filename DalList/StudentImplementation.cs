@@ -11,8 +11,10 @@ internal class StudentImplementation : IStudent
         {        foreach (Student item1 in DataSource.students)
 
             if (item.Id == item1.Id)
-
-                return -1;
+                {
+                    throw new AlreadyExistIdException("this id already exist");
+                    
+                }
         }
         DataSource.students.Add(item);
         return item.Id;
@@ -22,10 +24,13 @@ internal class StudentImplementation : IStudent
     {
         foreach (Student item in DataSource.students)
         {
-            if(item.Id==Id)
+            if (item.Id == Id)
+            {
                 DataSource.students.Remove(item);
-            
+                return;
+            }
         }
+        throw new NotFoundIdException($"Student with id {Id} not found.");
     }
 
     public Student? Read(int Id)
@@ -41,7 +46,7 @@ internal class StudentImplementation : IStudent
                
         }
 
-        return null;
+        throw new NotFoundIdException($"Student with id {Id} not found.");
     }
 
     public List<Student> ReadAll()
@@ -53,11 +58,14 @@ internal class StudentImplementation : IStudent
     public void Update(Student item) {
         foreach (Student item1 in DataSource.students)
         {
-            if(item1.Id== item.Id) {
-          DataSource.students.Remove(item1);
-            Create(item1);
+            if (item.Id == item1.Id)
+            {
+                DataSource.students.Add(item);
+                DataSource.students.Remove(item1);
+                return;
             }
         }
-    } 
+        throw new NotFoundIdException($"Student with id {item.Id} not found.");
+    }
     
 }

@@ -28,12 +28,12 @@ public static class Initialization
         Student s4 = new Student(321098765, "shira", 140, 0);
         Student s5 = new Student(432109876, "shira", 150, 0);
         Student s6 = new Student(543210987, "ayala", 160, 0);
-        s_dal.student.Create (s1);
-        s_dal.student.Create (s2);
-        s_dal.student.Create (s3);
-        s_dal.student.Create (s4);
-        s_dal.student.Create (s5);
-        s_dal.student.Create (s6);
+        s_dal.Student.Create (s1);
+        s_dal.Student.Create (s2);
+        s_dal.Student.Create (s3);
+        s_dal.Student.Create (s4);
+        s_dal.Student.Create (s5);
+        s_dal.Student.Create (s6);
     }
 
     private static void createQuestion()
@@ -43,11 +43,11 @@ public static class Initialization
         Question q3 = new Question(SubQuestions.cs, "What is C#?", 9);
         Question q4 = new Question(SubQuestions.c, "What is C?", 12);
         Question q5 = new Question(SubQuestions.python, "What is Python?", 15);
-        s_dal.question.Create(q1);
-        s_dal.question.Create(q2);
-        s_dal.question.Create(q3);
-        s_dal.question.Create(q4);
-        s_dal.question.Create(q5);
+        s_dal.Question.Create(q1);
+        s_dal.Question.Create(q2);
+        s_dal.Question.Create(q3);
+        s_dal.Question.Create(q4);
+        s_dal.Question.Create(q5);
     }
 
     private static void createAnswer()
@@ -76,34 +76,34 @@ Answer a52 = new Answer(13,"C is used to develop operating systems, compilers, a
         Answer a61 = new Answer(17,"Python is a high-level, interpreted programming language");
         Answer a62 = new Answer(17,"Python is used for web development, data analysis, artificial intelligence, and more");
         Answer a63 = new Answer(17,"Python has a simple syntax and is easy to learn");
-        s_dal.answer.Create(a1);
-        s_dal.answer.Create(a11);
-        s_dal.answer.Create(a12);
-        s_dal.answer.Create(a13);
-        s_dal.answer.Create(a2);
-        s_dal.answer.Create(a21);
-        s_dal.answer.Create(a22);
-        s_dal.answer.Create(a23);
-        s_dal.answer.Create(a3);
-        s_dal.answer.Create(a31);
-        s_dal.answer.Create(a32);
-        s_dal.answer.Create(a33);
-        s_dal.answer.Create(a4);
-        s_dal.answer.Create(a41);
-        s_dal.answer.Create(a42);
-        s_dal.answer.Create(a43);
-        s_dal.answer.Create(a5);
-        s_dal.answer.Create(a51);
-        s_dal.answer.Create(a52);
-        s_dal.answer.Create(a53);
-        s_dal.answer.Create(a6);
-        s_dal.answer.Create(a61);
-        s_dal.answer.Create(a62);
-        s_dal.answer.Create(a63);
+        s_dal.Answer.Create(a1);
+        s_dal.Answer.Create(a11);
+        s_dal.Answer.Create(a12);
+        s_dal.Answer.Create(a13);
+        s_dal.Answer.Create(a2);
+        s_dal.Answer.Create(a21);
+        s_dal.Answer.Create(a22);
+        s_dal.Answer.Create(a23);
+        s_dal.Answer.Create(a3);
+        s_dal.Answer.Create(a31);
+        s_dal.Answer.Create(a32);
+        s_dal.Answer.Create(a33);
+        s_dal.Answer.Create(a4);
+        s_dal.Answer.Create(a41);
+        s_dal.Answer.Create(a42);
+        s_dal.Answer.Create(a43);
+        s_dal.Answer.Create(a5);
+        s_dal.Answer.Create(a51);
+        s_dal.Answer.Create(a52);
+        s_dal.Answer.Create(a53);
+        s_dal.Answer.Create(a6);
+        s_dal.Answer.Create(a61);
+        s_dal.Answer.Create(a62);
+        s_dal.Answer.Create(a63);
 
     }
 
-    private static void createQuestionsstudent()
+    private static void createQuestionsStudent()
     {
         Questionsstudent qs1 = new Questionsstudent(543210987, 100, 1, 2);
         Questionsstudent qs2 = new Questionsstudent(432109876, 110, 5, 7);
@@ -124,7 +124,7 @@ Answer a52 = new Answer(13,"C is used to develop operating systems, compilers, a
         createTest();
         createQuestion();
         createAnswer();
-        createQuestionsstudent();
+        createQuestionsStudent();
 
     }
 }

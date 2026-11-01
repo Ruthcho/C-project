@@ -1,5 +1,6 @@
 ﻿using System;
-
+using DO;
+ namespace DO;
 public record Questionsstudent
 {
 public	int studentId;
