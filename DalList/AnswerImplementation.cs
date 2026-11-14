@@ -21,11 +21,10 @@ internal class AnswerImplementation : IAnswer
     public void Delete(int id)
     {
         LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Deleting answer with id {id}");
-        foreach (Answer item in DataSource.answers)
-            {
-                if (item.AnswerId == id)
+        Answer a = DataSource.answers.FirstOrDefault<Answer>(an => an.AnswerId==id );
+                if (a!=null)
                 {
-                    DataSource.answers.Remove(item);
+                    DataSource.answers.Remove(a);
                 LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Answer with id {id} deleted");
                 return;
                 }
@@ -33,17 +32,16 @@ internal class AnswerImplementation : IAnswer
             throw new NotFoundIdException($"Answer with id {id} not found.");
         } 
         
-    }
+   
 
     public Answer? Read(int id)
     {
         LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Reading answer with id {id}");
-
-        foreach (Answer item in DataSource.answers)
-            {
-                if (item.AnswerId == id)
+        Answer answer = DataSource.answers.FirstOrDefault<Answer>(a=>a.AnswerId==id);
+        
+                if (answer!=null) { 
                 LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Answer with id {id} found");
-            return item;
+            return answer;
             }
         
         throw new NotFoundIdException($"Answer with id {id} not found.");
@@ -58,21 +56,31 @@ internal class AnswerImplementation : IAnswer
         return list;
     }
 
+    public Answer ReadDet(Func<Answer, bool> filter)
+    {
+        Answer a = DataSource.answers.FirstOrDefault<Answer>(filter);
+        if (a != null)
+        {
+            LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Answer with det read successfully");
+            return a;
+        }
+        throw new NotFoundIdException($"Answer not found.");
+    }
+
     public void Update(Answer item)
     {
         LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Updating answer with id {item.AnswerId}");
 
-        foreach (Answer i in DataSource.answers)
+        Answer answer = DataSource.answers.FirstOrDefault<Answer>(a => a.AnswerId == item.AnswerId);
+        if (answer!=null)
             {
-            if (i.AnswerId == item.AnswerId)
-            {
-                DataSource.answers.Remove(i);
+                DataSource.answers.Remove(answer);
                 DataSource.answers.Add(item);
                 LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Answer with id {item.AnswerId} updated");
                 return;
             }
 
-            }
+            
         throw new NotFoundIdException($"Answer with id {item.AnswerId} not found.");
 
 

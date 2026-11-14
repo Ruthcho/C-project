@@ -21,6 +21,7 @@ class Program
         Console.WriteLine("4. for Answer");
         Console.WriteLine("5. for Questionsstudent");
         Console.WriteLine("6. for clean log");
+        
         Console.WriteLine("0. Exit");
         int choice = int.Parse(Console.ReadLine()!);
         string selected = "";
@@ -69,7 +70,10 @@ class Program
         Console.WriteLine($"3. ReadAll {name}");
         Console.WriteLine($"4. Update {name}");
         Console.WriteLine($"5. Delete {name}");
+        Console.WriteLine($"6. for ReadDet");
         Console.WriteLine("0. Back to main menu");
+        
+
         int choice = int.Parse(Console.ReadLine()!);
 
         switch (choice)
@@ -107,6 +111,10 @@ class Program
             case 5:
                 delete(crud);
                 break;
+                case 6:
+                    readDet(crud);
+                break;
+
             case 0:
                 printMenue();
                 return;
@@ -274,6 +282,143 @@ class Program
         LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, ex.Message);
         }
     }
+    private static void readDet<T>(ICrud<T> crud)
+    {
+       
+        try
+        {
+
+            if (crud is ICrud<Student> s)
+            {
+                ChooseStudentDetails(crud); }
+            else if (crud is ICrud<Test> t)
+            {
+                ChooseTestDetails(crud);
+            }
+            else if(crud is ICrud<Question> q)
+            {
+                ChooseQuestionDetails(crud);
+            }
+            else if(crud is ICrud<Answer> a)
+            {
+                ChooseAnswerDetails(crud);
+            }
+            else if(crud is ICrud<Questionsstudent> qs)
+            {
+               ChooseQuestionsstudentDetails(crud);
+            }
+        }
+           
+        
+        
+    }
+
+    private static void ChooseQuestionsstudentDetails<T>(ICrud<T> crud)
+    {
+        Console.WriteLine("Choose a filter for Questionsstudent:");
+        Console.WriteLine("1. By Student ID");
+        Console.WriteLine("2. By Test ID");
+        Console.WriteLine("3. By Question ID");
+        Console.WriteLine("4. By Answer ID");
+        int choice = int.Parse(Console.ReadLine());
+        Console.WriteLine("Enter the value for the chosen filter:");
+        string value = Console.ReadLine();
+        switch (choice) {
+            case 1:
+                int studentId = int.Parse(value);
+                Questionsstudent qsByStudentId = crud.ReadDet(qs => qs.studentId == studentId);
+                break;
+            case 2:
+                int testId = int.Parse(value);
+                Questionsstudent qsByTestId = crud.ReadDet(qs => qs.testId == testId);
+                break;
+            case 3:
+                int questionId = int.Parse(value);
+                Questionsstudent qsByQuestionId = crud.ReadDet(qs => qs.questionId == questionId);
+                break;
+            case 4:
+                int id = int.Parse(value);
+                Questionsstudent questionsstudent = crud.ReadDet(qs => qs.questudentId == id);
+                break;
+        }
+    }
+
+    private static void ChooseAnswerDetails<T>(ICrud<T> crud)
+    {
+        Console.WriteLine("Choose a filter for Answer:");
+        Console.WriteLine("1.By "
+    }
+
+    private static void ChooseQuestionDetails<T>(ICrud<T> crud)
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void ChooseTestDetails<T>(ICrud<T> crud)
+    {
+        Console.WriteLine("Choose a filter for Tests:");
+        Console.WriteLine("1. By Subject");
+        Console.WriteLine("2. By Date");
+        Console.WriteLine("3. By Number of Questions");
+        Console.WriteLine("4. By ID");
+        int choice = int.Parse(Console.ReadLine());
+        
+        Console.WriteLine("Enter the value for the chosen filter:");
+        string value = Console.ReadLine();
+        switch (choice)
+        {
+            case 1:
+              Test test=  crud.ReadDet(t=> t.subjTest == value);
+                break;
+                case 2:
+                DateTime date = DateTime.Parse(value);
+                Test testByDate = crud.ReadDet(t => t.dateTest == date);
+                break;
+                case 3:
+                int numQuestions = int.Parse(value);
+                Test testByNumQuestions = crud.ReadDet(t => t.sumQuestions == numQuestions);
+                break;
+                case 4:
+                int id = int.Parse(value);
+                Test testById = crud.ReadDet(t => t.testId == id);
+                break;
+
+        }
+    }
+    
+    private static void ChooseStudentDetails(ICrud<Student> crud)
+    {
+        Console.WriteLine("Choose a filter for Students:");
+        Console.WriteLine("1. By Name");
+        Console.WriteLine("2. By Test ID");
+        Console.WriteLine("3. By Mark");
+        Console.WriteLine("4. By ID");
+        int choice = int.Parse(Console.ReadLine()); 
+        Console.WriteLine("Enter the value for the chosen filter:");
+        string value = Console.ReadLine();
+        switch (choice)
+        {
+            case 1:
+               Student student= crud.ReadDet( s => s.name==value);
+                break;
+            case 2:
+                int testId = int.Parse(value);
+                Student studentByTestId = crud.ReadDet(s => s.testId == testId);
+                break;
+                case 3:
+                int mark = int.Parse(value);
+                Student studentByMark = crud.ReadDet(s => s.mark == mark);
+                break;
+                case 4:
+                int id = int.Parse(value);
+                Student studentById = crud.ReadDet(s => s.Id == id);
+                break;
+
+        }
+
+    }
+
+   
 
     static void Main(string[] args)
     {

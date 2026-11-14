@@ -21,26 +21,26 @@ internal class QuestionImplementation : IQuestion
     public void Delete(int id)
     {
         LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName ,MethodBase.GetCurrentMethod().Name, $"Deleting question with id {id}");
-        foreach (Question item in DataSource.questions)
+        Question item = DataSource.questions.FirstOrDefault<Question>(q=> q.IdQuestion==id);
+
+        if (item != null)
         {
-            if(item.IdQuestion==id)
-            {
-                DataSource.questions.Remove(item);
-                LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Question with id {id} deleted");
-                return;
-            }
+            DataSource.questions.Remove(item);
+            LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Question with id {id} deleted");
+            return;
         }
+        
         throw new NotFoundIdException($"Question with id {id} not found.");
     }
 
     public Question? Read(int id)
     {
         LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name , $"Reading question with id {id}");
-        foreach (Question item in DataSource.questions)
+        Question question = DataSource.questions.FirstOrDefault<Question>(q => q.IdQuestion == id);
+        if (question != null)
         {
-            if(item.IdQuestion==id)
-                LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Question with id {id} found");
-            return item;
+            LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $" question with id {id} readed");
+            return question;
         }
         throw new NotFoundIdException($"Question with id {id} not found.");
     }
@@ -53,18 +53,26 @@ internal class QuestionImplementation : IQuestion
         return list;
     }
 
+    public Question  ReadDet(Func<Question, bool> filter)
+    {
+        Question q = DataSource.questions.FirstOrDefault<Question>(filter);
+        if (q != null)
+        {
+            LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Question with det read successfully");
+            return q;
+        }
+        throw new NotFoundIdException($"Question not found.");
+    }
+
     public void Update(Question item)
     {
         LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Updating question with id {item.IdQuestion}");
-        foreach (Question i in DataSource.questions)
+        Question question=DataSource.questions.FirstOrDefault<Question>(q => q.IdQuestion == item.IdQuestion);
+        if (question != null)
         {
-            if(i.IdQuestion==item.IdQuestion)
-            {
-                DataSource.questions.Remove(i);
-                DataSource.questions.Add(item);
-                LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Question with id {item.IdQuestion} updated");
-                return;
-            }
+            DataSource.questions.Remove(question);
+            DataSource.questions.Add(item);
+            LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Question with id {item.IdQuestion} updated");
         }
         throw new NotFoundIdException($"Question with id {item.IdQuestion} not found.");
     }

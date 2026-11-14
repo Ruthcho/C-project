@@ -8,5 +8,6 @@ public interface  ICrud<T>
     List<T> ReadAll(); //stage 1 only, Reads all entity objects
     void Update(T item); //Updates entity object
     void Delete(int id);
+    T ReadDet(Func<T, bool> filter);
 
 }
