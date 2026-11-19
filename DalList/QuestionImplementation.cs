@@ -45,16 +45,9 @@ internal class QuestionImplementation : IQuestion
         throw new NotFoundIdException($"Question with id {id} not found.");
     }
 
-    public List<Question> ReadAll()
+    public Question? Read(Func<Question, bool> filter)
     {
-        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, "Reading all questions");
-        List<Question> list = new List<Question>(DataSource.questions);
-        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Total questions found: {list.Count}");
-        return list;
-    }
-
-    public Question  ReadDet(Func<Question, bool> filter)
-    {
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Reading question with filter");
         Question q = DataSource.questions.FirstOrDefault<Question>(filter);
         if (q != null)
         {
@@ -63,6 +56,27 @@ internal class QuestionImplementation : IQuestion
         }
         throw new NotFoundIdException($"Question not found.");
     }
+
+  
+
+    public List<Question?> ReadAll(Func<Question, bool>? filter = null)
+    {
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, "Reading all questions with filter");
+        List<Question> list;
+        if (filter == null)
+        {
+            list = new List<Question>(DataSource.questions);
+        }
+        else
+        {
+            list = DataSource.questions.Where(filter).ToList();
+        }
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Total questions found with filter: {list.Count}");
+        return list;
+
+    }
+
+    
 
     public void Update(Question item)
     {

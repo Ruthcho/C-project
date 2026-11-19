@@ -53,16 +53,9 @@ internal class StudentImplementation : IStudent
         throw new NotFoundIdException($"Student with id {Id} not found.");
     }
 
-    public List<Student> ReadAll()
+    public Student? Read(Func<Student, bool> filter)
     {
-        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Reading all students");
-        List<Student>? newStudents = new List<Student>(DataSource.students);
-        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Total students found: {newStudents.Count}");
-        return newStudents;
-    }
-
-    public Student ReadDet(Func<Student, bool> filter)
-    {
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Reading student with filter");
         Student s = DataSource.students.FirstOrDefault<Student>(filter);
         if (s != null)
         {
@@ -71,6 +64,32 @@ internal class StudentImplementation : IStudent
         }
         throw new NotFoundIdException($"Student not found.");
     }
+
+    public List<Student> ReadAll()
+    {
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Reading all students");
+        List<Student>? newStudents = new List<Student>(DataSource.students);
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Total students found: {newStudents.Count}");
+        return newStudents;
+    }
+
+    public List<Student?> ReadAll(Func<Student, bool>? filter = null)
+    {
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, "Reading all students with filter");
+        List<Student> list;
+        if (filter == null)
+        {
+            list = new List<Student>(DataSource.students);
+        }
+        else
+        {
+            list = DataSource.students.Where(filter).ToList();
+        }
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Total students found with filter: {list.Count}");
+        return list;
+    }
+
+   
 
     public void Update(Student item)
     {

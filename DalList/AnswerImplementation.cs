@@ -47,17 +47,9 @@ internal class AnswerImplementation : IAnswer
         throw new NotFoundIdException($"Answer with id {id} not found.");
     }
 
-    public List<Answer> ReadAll()
+    public Answer? Read(Func<Answer, bool> filter)
     {
-        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, "Reading all answers");
-
-        List<Answer> list = new List<Answer>(DataSource.answers);
-        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Total answers found: {list.Count}");
-        return list;
-    }
-
-    public Answer ReadDet(Func<Answer, bool> filter)
-    {
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Reading answer with filter");
         Answer a = DataSource.answers.FirstOrDefault<Answer>(filter);
         if (a != null)
         {
@@ -66,6 +58,22 @@ internal class AnswerImplementation : IAnswer
         }
         throw new NotFoundIdException($"Answer not found.");
     }
+
+
+
+    public List<Answer?> ReadAll(Func<Answer, bool>? filter = null)
+    {
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, "Reading all answers");
+        if (filter == null)
+        {
+            LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, "No filter provided, returning all answers");
+            return new List<Answer?>(DataSource.answers);
+        }
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, "Reading all answers with filter");
+        return DataSource.answers.Where(filter).ToList();
+    }
+
+   
 
     public void Update(Answer item)
     {

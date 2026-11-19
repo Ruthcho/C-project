@@ -45,16 +45,9 @@ internal class TestImplementation : ITest
         throw new NotFoundIdException($"Test with id {id} not found.");
     }
 
-    public List<Test> ReadAll()
+    public Test? Read(Func<Test, bool> filter)
     {
-        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Reading all tests");
-        List<Test> values = new List<Test>(DataSource.tests);
-        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Tests read successfully");
-        return values;
-    }
-
-    public Test ReadDet(Func<Test, bool> filter)
-    {
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Reading test with filter");
         Test t = DataSource.tests.FirstOrDefault<Test>(filter);
         if (t != null)
         {
@@ -62,6 +55,24 @@ internal class TestImplementation : ITest
             return t;
         }
         throw new NotFoundIdException($"Test not found.");
+    }
+
+    
+
+    public List<Test?> ReadAll(Func<Test, bool>? filter = null)
+    {
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Reading all tests with filter");
+        List<Test> list;
+        if (filter == null)
+        {
+            list = new List<Test>(DataSource.tests);
+        }
+        else
+        {
+            list = DataSource.tests.Where(filter).ToList();
+        }
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Total tests found with filter: {list.Count}");
+        return list;
     }
 
     public void Update(Test item)

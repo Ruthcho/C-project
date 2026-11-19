@@ -43,16 +43,9 @@ internal class QuestiosstudentImplementation : IQuestionsstudent
         throw new NotFoundIdException($"QuestionStudent with id {idQ} not found.");
     }
 
-    public List<Questionsstudent> ReadAll()
+    public Questionsstudent? Read(Func<Questionsstudent, bool> filter)
     {
-        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, "Reading all question-student associations");
-        List<Questionsstudent> values = new List<Questionsstudent>(DataSource.questionsstudents);
-        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Total question-student associations found: {values.Count}");
-        return values;
-    }
-
-    public Questionsstudent ReadDet(Func<Questionsstudent, bool> filter)
-    {
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Reading question-student association with filter");
         Questionsstudent q = DataSource.questionsstudents.FirstOrDefault<Questionsstudent>(filter);
         if (q != null)
         {
@@ -61,6 +54,26 @@ internal class QuestiosstudentImplementation : IQuestionsstudent
         }
         throw new NotFoundIdException($"QuestionStudent not found.");
     }
+
+   
+
+    public List<Questionsstudent?> ReadAll(Func<Questionsstudent, bool>? filter = null)
+    {
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Reading all question-student associations with filter");
+        List<Questionsstudent> list;
+        if (filter == null)
+        {
+            list = new List<Questionsstudent>(DataSource.questionsstudents);
+        }
+        else
+        {
+            list = DataSource.questionsstudents.Where(filter).ToList();
+        }
+        LogManager.WriteToLog(MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name, $"Total question-student associations found with filter: {list.Count}");
+        return list;
+    }
+
+   
 
     public void Update(Questionsstudent item)
     {
